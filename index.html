@@ -2,25 +2,34 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Padhu ❤️ Forever</title>
 
 <style>
 body{
 margin:0;
 font-family:'Segoe UI',sans-serif;
-background:radial-gradient(circle at top,#ff4d6d,#1a001f);
+background:linear-gradient(135deg,#14001f,#2a0038,#ff4d6d);
 color:white;
 text-align:center;
 overflow-x:hidden;
 }
 
-/* Smooth fade */
-.fade{
-animation:fadeIn 2s ease-in-out;
-}
-@keyframes fadeIn{
-from{opacity:0;}
-to{opacity:1;}
+/* Fade */
+.fade{animation:fadeIn 2s ease;}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+
+/* Glow background */
+body::after{
+content:"";
+position:fixed;
+width:400px;
+height:400px;
+background:radial-gradient(circle,#ff4d6d55,transparent 70%);
+top:20%;
+left:30%;
+filter:blur(80px);
+z-index:-1;
 }
 
 /* Login */
@@ -40,7 +49,7 @@ font-size:16px;
 }
 button{
 margin-top:15px;
-padding:12px 25px;
+padding:12px 28px;
 border:none;
 border-radius:25px;
 background:white;
@@ -49,23 +58,29 @@ font-size:16px;
 cursor:pointer;
 transition:0.3s;
 }
-button:hover{transform:scale(1.1);}
+button:hover{transform:scale(1.08);}
 
 #main{display:none;padding:20px;}
 
-.counter{margin:15px;font-size:20px;font-weight:bold;}
+.counter{
+margin:20px 0;
+font-size:20px;
+font-weight:bold;
+}
 
 .love{
 display:none;
-width:75%;
+width:85%;
+max-width:600px;
 margin:auto;
 line-height:1.7;
-font-size:20px;
+font-size:18px;
 }
 
 .slideshow img{
-width:270px;
-height:330px;
+width:280px;
+height:350px;
+max-width:90%;
 border-radius:20px;
 object-fit:cover;
 box-shadow:0 0 25px rgba(255,255,255,0.6);
@@ -76,17 +91,40 @@ margin-top:25px;
 .heart{
 position:fixed;
 bottom:-10px;
-animation:float 6s linear infinite;
+animation:float 7s linear infinite;
 }
 @keyframes float{
 0%{transform:translateY(0);opacity:1;}
 100%{transform:translateY(-100vh);opacity:0;}
+}
+
+/* Sparkles */
+.sparkle{
+position:fixed;
+width:4px;
+height:4px;
+background:white;
+border-radius:50%;
+animation:sparkleAnim 3s linear infinite;
+}
+@keyframes sparkleAnim{
+0%{opacity:0;}
+50%{opacity:1;}
+100%{opacity:0;}
+}
+
+/* Pulse */
+@keyframes pulse{
+0%{transform:scale(1);}
+50%{transform:scale(1.08);}
+100%{transform:scale(1);}
 }
 </style>
 </head>
 
 <body>
 
+<!-- LOGIN -->
 <div id="login">
 <h1>🔐 Private Love Deployment</h1>
 <p>Only Padhu can unlock this ❤️</p>
@@ -94,22 +132,24 @@ animation:float 6s linear infinite;
 <button onclick="unlock()">Unlock</button>
 </div>
 
+<!-- MAIN -->
 <div id="main" class="fade">
 
 <h1>Happy Valentine’s Day Padhu ❤️</h1>
 
 <div class="counter" id="days"></div>
 
-<button onclick="reveal()">Reveal My Heart 💖</button>
+<button onclick="reveal()">Reveal My Heart 💌</button>
 
 <div class="love" id="loveText">
 Padhu ❤️<br><br>
 
-On 13-Aug-2025, my life received its most beautiful production release. 💍<br><br>
+13-Aug-2025 was not just our wedding day —  
+it was the day my life found its forever. 💍<br><br>
 
-You are my peace after stressful deployments,  
-my happiness after long days,  
-and my strength in every situation.<br><br>
+You are my calm after chaos,  
+my strength during storms,  
+my happiness in every ordinary day.<br><br>
 
 If (life == unpredictable) {<br>
 &nbsp;&nbsp;you = my constant;<br>
@@ -119,8 +159,7 @@ while (forever) {<br>
 &nbsp;&nbsp;loveYouMore();<br>
 }<br><br>
 
-In every version of life —  
-I choose you. 💕
+In every lifetime… I choose you. 💕
 </div>
 
 <div class="slideshow">
@@ -149,12 +188,12 @@ alert("Access Denied ❤️ Only my Padhu can enter.");
 }
 }
 
-/* Reveal love */
+/* Reveal */
 function reveal(){
 document.getElementById("loveText").style.display="block";
 }
 
-/* Days Counter */
+/* Counter */
 const wedding=new Date("August 13, 2025");
 const today=new Date();
 const diff=Math.floor((today-wedding)/(1000*60*60*24));
@@ -175,26 +214,78 @@ let h=document.createElement("div");
 h.innerHTML="❤️";
 h.className="heart";
 h.style.left=Math.random()*100+"vw";
-h.style.fontSize=(Math.random()*20+15)+"px";
+h.style.fontSize=(Math.random()*15+12)+"px";
 document.body.appendChild(h);
-setTimeout(()=>{h.remove();},6000);
-},500);
+setTimeout(()=>{h.remove();},7000);
+},900);
 
-/* Proposal Celebration */
+/* Sparkles */
+setInterval(()=>{
+let s=document.createElement("div");
+s.className="sparkle";
+s.style.left=Math.random()*100+"vw";
+s.style.top=Math.random()*100+"vh";
+document.body.appendChild(s);
+setTimeout(()=>{s.remove();},3000);
+},300);
+
+/* Proposal */
 function proposal(){
-for(let j=0;j<70;j++){
+
+let overlay=document.createElement("div");
+overlay.style.position="fixed";
+overlay.style.top="0";
+overlay.style.left="0";
+overlay.style.width="100%";
+overlay.style.height="100%";
+overlay.style.background="rgba(0,0,0,0.92)";
+overlay.style.display="flex";
+overlay.style.flexDirection="column";
+overlay.style.justifyContent="center";
+overlay.style.alignItems="center";
+overlay.style.textAlign="center";
+overlay.style.zIndex="9999";
+overlay.style.animation="fadeIn 2s ease";
+
+overlay.innerHTML=`
+<h1 style="font-size:50px; animation:pulse 2s infinite;">
+💍 Forever With You 💍
+</h1>
+<p style="font-size:22px; margin-top:20px;">
+Padhu… In every lifetime, I choose you ❤️
+</p>
+<p style="font-size:18px; margin-top:15px;">
+నిన్ను ప్రతి జన్మలోనూ నేను ఎంచుకుంటాను ❤️
+</p>
+<button onclick="this.parentElement.remove()" 
+style="margin-top:30px;padding:12px 28px;border:none;
+border-radius:25px;background:#ff4d6d;color:white;font-size:18px;">
+Close 💕
+</button>
+`;
+
+document.body.appendChild(overlay);
+
+/* Heart rain */
+for(let j=0;j<100;j++){
 let c=document.createElement("div");
 c.innerHTML="💖";
 c.style.position="fixed";
 c.style.left=Math.random()*100+"vw";
 c.style.top="-10px";
 c.style.fontSize="25px";
-c.style.animation="float 4s linear forwards";
+c.style.animation="float 5s linear forwards";
+c.style.zIndex="10000";
 document.body.appendChild(c);
-setTimeout(()=>{c.remove();},4000);
+setTimeout(()=>{c.remove();},5000);
 }
-alert("Forever With You, Padhu ❤️");
+
+/* Hidden secret */
+document.body.ondblclick=function(){
+alert("You are my greatest blessing, Padhu ❤️");
+};
 }
+
 </script>
 
 </body>
