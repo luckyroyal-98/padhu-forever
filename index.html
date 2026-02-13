@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Padhu ❤️ Forever</title>
+
+<style>
+body{
+margin:0;
+font-family:'Segoe UI',sans-serif;
+background:radial-gradient(circle at top,#ff4d6d,#1a001f);
+color:white;
+text-align:center;
+overflow-x:hidden;
+}
+
+/* Smooth fade */
+.fade{
+animation:fadeIn 2s ease-in-out;
+}
+@keyframes fadeIn{
+from{opacity:0;}
+to{opacity:1;}
+}
+
+/* Login */
+#login{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+}
+input{
+padding:12px;
+border-radius:25px;
+border:none;
+text-align:center;
+font-size:16px;
+}
+button{
+margin-top:15px;
+padding:12px 25px;
+border:none;
+border-radius:25px;
+background:white;
+color:#ff4d6d;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
+}
+button:hover{transform:scale(1.1);}
+
+#main{display:none;padding:20px;}
+
+.counter{margin:15px;font-size:20px;font-weight:bold;}
+
+.love{
+display:none;
+width:75%;
+margin:auto;
+line-height:1.7;
+font-size:20px;
+}
+
+.slideshow img{
+width:270px;
+height:330px;
+border-radius:20px;
+object-fit:cover;
+box-shadow:0 0 25px rgba(255,255,255,0.6);
+margin-top:25px;
+}
+
+/* Floating hearts */
+.heart{
+position:fixed;
+bottom:-10px;
+animation:float 6s linear infinite;
+}
+@keyframes float{
+0%{transform:translateY(0);opacity:1;}
+100%{transform:translateY(-100vh);opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<div id="login">
+<h1>🔐 Private Love Deployment</h1>
+<p>Only Padhu can unlock this ❤️</p>
+<input type="text" id="pass" placeholder="Enter your name">
+<button onclick="unlock()">Unlock</button>
+</div>
+
+<div id="main" class="fade">
+
+<h1>Happy Valentine’s Day Padhu ❤️</h1>
+
+<div class="counter" id="days"></div>
+
+<button onclick="reveal()">Reveal My Heart 💖</button>
+
+<div class="love" id="loveText">
+Padhu ❤️<br><br>
+
+On 13-Aug-2025, my life received its most beautiful production release. 💍<br><br>
+
+You are my peace after stressful deployments,  
+my happiness after long days,  
+and my strength in every situation.<br><br>
+
+If (life == unpredictable) {<br>
+&nbsp;&nbsp;you = my constant;<br>
+}<br><br>
+
+while (forever) {<br>
+&nbsp;&nbsp;loveYouMore();<br>
+}<br><br>
+
+In every version of life —  
+I choose you. 💕
+</div>
+
+<div class="slideshow">
+<img id="slide" src="photo1.jpg">
+</div>
+
+<br>
+<button onclick="proposal()">Will You Stay With Me Forever? 💍</button>
+
+</div>
+
+<audio autoplay loop>
+<source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+/* Unlock */
+function unlock(){
+let v=document.getElementById("pass").value.toLowerCase();
+if(v==="padhu"){
+document.getElementById("login").style.display="none";
+document.getElementById("main").style.display="block";
+}else{
+alert("Access Denied ❤️ Only my Padhu can enter.");
+}
+}
+
+/* Reveal love */
+function reveal(){
+document.getElementById("loveText").style.display="block";
+}
+
+/* Days Counter */
+const wedding=new Date("August 13, 2025");
+const today=new Date();
+const diff=Math.floor((today-wedding)/(1000*60*60*24));
+document.getElementById("days").innerText=
+"Married for "+diff+" beautiful days 💍";
+
+/* Slideshow */
+const imgs=["photo1.jpg","photo2.jpg","photo3.jpg"];
+let i=0;
+setInterval(()=>{
+i=(i+1)%imgs.length;
+document.getElementById("slide").src=imgs[i];
+},3000);
+
+/* Floating hearts */
+setInterval(()=>{
+let h=document.createElement("div");
+h.innerHTML="❤️";
+h.className="heart";
+h.style.left=Math.random()*100+"vw";
+h.style.fontSize=(Math.random()*20+15)+"px";
+document.body.appendChild(h);
+setTimeout(()=>{h.remove();},6000);
+},500);
+
+/* Proposal Celebration */
+function proposal(){
+for(let j=0;j<70;j++){
+let c=document.createElement("div");
+c.innerHTML="💖";
+c.style.position="fixed";
+c.style.left=Math.random()*100+"vw";
+c.style.top="-10px";
+c.style.fontSize="25px";
+c.style.animation="float 4s linear forwards";
+document.body.appendChild(c);
+setTimeout(()=>{c.remove();},4000);
+}
+alert("Forever With You, Padhu ❤️");
+}
+</script>
+
+</body>
+</html>
