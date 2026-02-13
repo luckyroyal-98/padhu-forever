@@ -19,19 +19,6 @@ overflow-x:hidden;
 .fade{animation:fadeIn 2s ease;}
 @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
 
-/* Glow background */
-body::after{
-content:"";
-position:fixed;
-width:400px;
-height:400px;
-background:radial-gradient(circle,#ff4d6d55,transparent 70%);
-top:20%;
-left:30%;
-filter:blur(80px);
-z-index:-1;
-}
-
 /* Login */
 #login{
 height:100vh;
@@ -48,7 +35,7 @@ text-align:center;
 font-size:16px;
 }
 button{
-margin-top:15px;
+margin:10px;
 padding:12px 28px;
 border:none;
 border-radius:25px;
@@ -73,7 +60,7 @@ display:none;
 width:85%;
 max-width:600px;
 margin:auto;
-line-height:1.7;
+line-height:1.8;
 font-size:18px;
 }
 
@@ -98,26 +85,21 @@ animation:float 7s linear infinite;
 100%{transform:translateY(-100vh);opacity:0;}
 }
 
-/* Sparkles */
-.sparkle{
+/* Overlay */
+.overlay{
 position:fixed;
-width:4px;
-height:4px;
-background:white;
-border-radius:50%;
-animation:sparkleAnim 3s linear infinite;
-}
-@keyframes sparkleAnim{
-0%{opacity:0;}
-50%{opacity:1;}
-100%{opacity:0;}
-}
-
-/* Pulse */
-@keyframes pulse{
-0%{transform:scale(1);}
-50%{transform:scale(1.08);}
-100%{transform:scale(1);}
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.92);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+z-index:9999;
+animation:fadeIn 1.5s ease;
 }
 </style>
 </head>
@@ -126,7 +108,7 @@ animation:sparkleAnim 3s linear infinite;
 
 <!-- LOGIN -->
 <div id="login">
-<h1>🔐 Private Love Deployment</h1>
+<h1>🔐 Private Love Space</h1>
 <p>Only Padhu can unlock this ❤️</p>
 <input type="text" id="pass" placeholder="Enter your name">
 <button onclick="unlock()">Unlock</button>
@@ -144,22 +126,20 @@ animation:sparkleAnim 3s linear infinite;
 <div class="love" id="loveText">
 Padhu ❤️<br><br>
 
-13-Aug-2025 was not just our wedding day —  
-it was the day my life found its forever. 💍<br><br>
+From the day we became one on 13-Aug-2025,  
+my world changed in the most beautiful way. 💍<br><br>
 
-You are my calm after chaos,  
-my strength during storms,  
-my happiness in every ordinary day.<br><br>
+You are my peace in chaos,  
+my smile on hard days,  
+my comfort when I need strength.<br><br>
 
-If (life == unpredictable) {<br>
-&nbsp;&nbsp;you = my constant;<br>
-}<br><br>
+Loving you is not a choice I make every day —  
+it is something my heart does naturally.<br><br>
 
-while (forever) {<br>
-&nbsp;&nbsp;loveYouMore();<br>
-}<br><br>
-
-In every lifetime… I choose you. 💕
+No matter where life takes us,  
+I will stand beside you,  
+hold your hand,  
+and choose you… again and again. 💕
 </div>
 
 <div class="slideshow">
@@ -167,11 +147,11 @@ In every lifetime… I choose you. 💕
 </div>
 
 <br>
-<button onclick="proposal()">Will You Stay With Me Forever? 💍</button>
+<button onclick="askForever()">Will You Stay With Me Forever? 💍</button>
 
 </div>
 
-<audio autoplay loop>
+<audio id="bgmusic" loop>
 <source src="song.mp3" type="audio/mpeg">
 </audio>
 
@@ -183,8 +163,9 @@ let v=document.getElementById("pass").value.toLowerCase();
 if(v==="padhu"){
 document.getElementById("login").style.display="none";
 document.getElementById("main").style.display="block";
+document.getElementById("bgmusic").play();
 }else{
-alert("Access Denied ❤️ Only my Padhu can enter.");
+alert("Only my Padhu can enter ❤️");
 }
 }
 
@@ -219,71 +200,50 @@ document.body.appendChild(h);
 setTimeout(()=>{h.remove();},7000);
 },900);
 
-/* Sparkles */
-setInterval(()=>{
-let s=document.createElement("div");
-s.className="sparkle";
-s.style.left=Math.random()*100+"vw";
-s.style.top=Math.random()*100+"vh";
-document.body.appendChild(s);
-setTimeout(()=>{s.remove();},3000);
-},300);
-
-/* Proposal */
-function proposal(){
+/* Forever Question */
+function askForever(){
 
 let overlay=document.createElement("div");
-overlay.style.position="fixed";
-overlay.style.top="0";
-overlay.style.left="0";
-overlay.style.width="100%";
-overlay.style.height="100%";
-overlay.style.background="rgba(0,0,0,0.92)";
-overlay.style.display="flex";
-overlay.style.flexDirection="column";
-overlay.style.justifyContent="center";
-overlay.style.alignItems="center";
-overlay.style.textAlign="center";
-overlay.style.zIndex="9999";
-overlay.style.animation="fadeIn 2s ease";
+overlay.className="overlay";
 
 overlay.innerHTML=`
-<h1 style="font-size:50px; animation:pulse 2s infinite;">
-💍 Forever With You 💍
-</h1>
-<p style="font-size:22px; margin-top:20px;">
-Padhu… In every lifetime, I choose you ❤️
-</p>
-<p style="font-size:18px; margin-top:15px;">
-నిన్ను ప్రతి జన్మలోనూ నేను ఎంచుకుంటాను ❤️
-</p>
-<button onclick="this.parentElement.remove()" 
-style="margin-top:30px;padding:12px 28px;border:none;
-border-radius:25px;background:#ff4d6d;color:white;font-size:18px;">
-Close 💕
-</button>
+<h1>Will You Stay With Me Forever? 💍</h1>
+<div>
+<button onclick="yesAnswer()">YES ❤️</button>
+<button onclick="noAnswer()">NO 😜</button>
+</div>
 `;
 
 document.body.appendChild(overlay);
-
-/* Heart rain */
-for(let j=0;j<100;j++){
-let c=document.createElement("div");
-c.innerHTML="💖";
-c.style.position="fixed";
-c.style.left=Math.random()*100+"vw";
-c.style.top="-10px";
-c.style.fontSize="25px";
-c.style.animation="float 5s linear forwards";
-c.style.zIndex="10000";
-document.body.appendChild(c);
-setTimeout(()=>{c.remove();},5000);
 }
 
-/* Hidden secret */
-document.body.ondblclick=function(){
-alert("You are my greatest blessing, Padhu ❤️");
-};
+/* YES */
+function yesAnswer(){
+document.querySelector(".overlay").innerHTML=`
+<h1>💖 You Just Made My World Complete 💖</h1>
+<p style="margin-top:20px;font-size:20px;">
+I promise to love you more every single day.  
+Forever starts now… and never ends. 💕
+</p>
+<button onclick="closeOverlay()">Close</button>
+`;
+}
+
+/* NO (funny) */
+function noAnswer(){
+document.querySelector(".overlay").innerHTML=`
+<h1>😂 Nice Try!</h1>
+<p style="margin-top:20px;font-size:20px;">
+Even if you say no…  
+you are still mine forever 😌❤️<br><br>
+There is no escape from my love!
+</p>
+<button onclick="closeOverlay()">Okay Okay 😄</button>
+`;
+}
+
+function closeOverlay(){
+document.querySelector(".overlay").remove();
 }
 
 </script>
